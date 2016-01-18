@@ -7,6 +7,15 @@
 ======
 ####0. 30 Second Guide
 
+
+2016-1-18 Modfiy军团/来博客
+
+wget --no-check-certificate https://raw.githubusercontent.com/hapshon/rrtinst/master/seedbox_TR_DE.sh
+
+
+
+
+
 Download script
 
 	wget --no-check-certificate https://raw.githubusercontent.com/arakasi72/rtinst/master/rtinst.sh
