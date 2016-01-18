@@ -10,7 +10,7 @@
 
 2016-1-18 Modfiy军团/来博客
 
-wget --no-check-certificate https://raw.githubusercontent.com/hapshon/rrtinst/master/seedbox_TR_DE.sh
+wget --no-check-certificate https://raw.githubusercontent.com/hapshon/rtinst/master/seedbox_TR_DE.sh
 
 
 
