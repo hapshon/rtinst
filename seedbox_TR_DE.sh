@@ -77,7 +77,7 @@ ONEKEY_DOWNLOAD_LINK="http://sh.laiboke.com/box"
 ONEKEY_WEB_LINK="www.dwhd.org"
 ONEKEY_ADMIN_EMAIL="admin@dwhd.org"
 ONEKEY_TIME="$(date)"
-ONEKEY_NEWUSER_DIRECTORY="/home/box123"
+ONEKEY_NEWUSER_DIRECTORY="/home/hapshon/transmission"
 ONEKEY_FLEXGET_DIRECTORY="/root/.flexget"
 ONEKEY_ONLINE_INSTALL="aptitude install"
 ONEKEY_SCCREN_DELUGE="screen -fa -d -m -S deluge-web deluge-web"
@@ -723,7 +723,7 @@ install_transmissionub() {
 		if [ "$1" != "" ]; then
 			trpasswd=$1
 		fi
-		sudo useradd $trname -d /home/box123 -m -k /n
+		sudo useradd $trname -d /home/hapshon/transmission -m -k /n
 		echo $trname:$trpasswd | chpasswd
 		if [ -n "$ONEKEY_UBUNTU_1110" ] || [ -n "$ONEKEY_UBUNTU_1204" ] || [ -n "$ONEKEY_UBUNTU_1210" ] || [ -n "$ONEKEY_UBUNTU_1304" ] || [ -n "$ONEKEY_UBUNTU_1310" ] || [ -n "$ONEKEY_UBUNTU_1404" ] || [ -n "$ONEKEY_UBUNTU_1504" ]; then
 			#apt-get install -y build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libappindicator-dev
@@ -801,7 +801,7 @@ install_transmission() {
 		if [ "$1" != "" ]; then
 			trpasswd=$1
 		fi
-		sudo useradd $trname -d /home/box123 -m -k /n
+		sudo useradd $trname -d /home/hapshon/transmission -m -k /n
 		echo $trname:$trpasswd | chpasswd
 		apt-get install python-software-properties vnstat mktorrent -y && printf "\033c"
 		add-apt-repository -y ppa:transmissionbt/ppa && printf "\033c"
@@ -959,7 +959,7 @@ install_http() {
         sed -i '/http {/a \\tautoindex on;\n\tautoindex_exact_size off;\n\tautoindex_localtime on;' nginx.conf
 		sed -ri "s/(^([[:space:]])+listen\2+).*/\1$nginxProt;/" nginx.conf
 		sed -ri "s/(^([[:space:]])+server_name\2+).*/\1$(hostname);/" nginx.conf
-		sed -ri "s@(^([[:space:]])+root\2+).*@\1/home/box123/downloads;@" nginx.conf
+		sed -ri "s@(^([[:space:]])+root\2+).*@\1/home/hapshon/transmission/downloads;@" nginx.conf
 		echo "export PATH=/usr/local/nginx/sbin/:$PATH" > /etc/profile.d/nginx.sh
 		update-rc.d nginx defaults && service nginx start && rm -rf /tmp/src && printf "\033c"
 		getIpAddress
@@ -1210,7 +1210,7 @@ install_flexget() {
 		touch $ONEKEY_CRONTAB_ROOT
 		ONEKEY_FLEXGET1=`cat /var/spool/cron/crontabs/root | grep '/usr/local/bin/flexget > /root/flexget.log 2>&1'`
 		ONEKEY_FLEXGET2=`cat /var/spool/cron/crontabs/root | grep 'rm -rf /root/.flexget/.config-lock'`
-		ONEKEY_FLEXGET3=`cat /var/spool/cron/crontabs/root | grep 'rm -rf /home/box123/rss/*'`
+		ONEKEY_FLEXGET3=`cat /var/spool/cron/crontabs/root | grep 'rm -rf /home/hapshon/transmission/rss/*'`
 		if [ -n "$ONEKEY_FLEXGET1" ]; then
 			echo "${CYELLOW}Flexget定时运行已经设置  跳过$CEND"
 		else
@@ -1224,7 +1224,7 @@ install_flexget() {
 		if [ -n "$ONEKEY_FLEXGET3" ]; then
 			echo "${CYELLOW}定时清空Flexget RSS种子缓存已经设置   跳过$CEND"
 		else
-			echo "*/20 * * * * rm -rf /home/box123/rss/*" >> $ONEKEY_CRONTAB_ROOT
+			echo "*/20 * * * * rm -rf /home/hapshon/transmission/rss/*" >> $ONEKEY_CRONTAB_ROOT
 		fi
 		crontab $ONEKEY_CRONTAB_ROOT
 		crontab -l&&printf "\033c"
@@ -1335,7 +1335,7 @@ trflexget_config() {
 			sed -i '66,98s/.*//' config.yml
 		fi
 		printf "\033c"
-		sed -i s@box123@"$trname"@ config.yml
+		sed -i s@hapshon/transmission@"$trname"@ config.yml
 		sed -i s@trpasswd@"$trpasswd2"@g config.yml
 		sed -i '/^$/d' config.yml
 		dos2unix $ONEKEY_FLEXGET_DIRECTORY/config.yml
